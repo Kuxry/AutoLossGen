@@ -106,7 +106,9 @@ class LossFormula(nn.Module):
 		for layer_id in range(self.num_layers):
 			layer = LossLayer(layer_id, self.num_layers + 3, 1, epsilon)
 			self.layers.append(layer)
-		
+
+
+
 	def forward(self, x, y, sample_arc, small_epsilon=False):
 
 		prev_layers = []
@@ -118,9 +120,11 @@ class LossFormula(nn.Module):
 		for layer_id in range(3, self.num_layers):
 			out = self.layers[layer_id](prev_layers, sample_arc[str(layer_id)], small_epsilon)
 			prev_layers[layer_id] = out
-
+			# 假设layer——id=3 赋予第四个格的值， 输出是第四个格的值
+			# 下一个循环则以第四个的值作为输入，放入prev_layers重作为下个的输入
 		return torch.mean(prev_layers[-1])
-	
+
+
 	def log_formula(self, sample_arc, id):
 		if id == 0:
 			return 'pred'

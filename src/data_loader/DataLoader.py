@@ -5,6 +5,7 @@ import numpy as np
 import logging
 from utils.mining import group_user_interactions_df
 from utils import global_p
+# import ..utils
 import json
 
 
@@ -124,7 +125,13 @@ class DataLoader(object):
         else:
             lines = open(self.info_file, 'r').readlines()
             max_dict = json.loads(lines[0])
-            min_dict = json.loads(lines[1])
+
+            #加入判断 否则会报错
+            if lines[1]== '\n':
+                min_dict = json.loads(lines[2])
+            else:
+                min_dict = json.loads(lines[1])
+
 
         self.column_max = max_dict
         self.column_min = min_dict

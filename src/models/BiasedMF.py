@@ -124,7 +124,7 @@ class BiasedMF(torch.nn.Module):
 	def l2(self):
 		l2 = 0
 		for p in self.parameters():
-			l2 += (p ** 2).sum()
+			l2 += (p ** 2).sum()	
 		return l2
 	
 	def save_model(self, model_path=None):
